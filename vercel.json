@@ -1,0 +1,48 @@
+{
+  "version": 2,
+  "name": "refugio-natural",
+  "alias": ["refugio-natural.vercel.app"],
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_SITE_URL": "https://refugio-natural.vercel.app"
+    }
+  },
+  "env": {
+    "NEXT_PUBLIC_WHATSAPP_NUMBER": "1234567890",
+    "NEXT_PUBLIC_CALENDLY_URL": "https://calendly.com/refugionatural"
+  },
+  "functions": {
+    "app/api/**/*.ts": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
+    }
+  ]
+}
