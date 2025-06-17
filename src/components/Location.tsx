@@ -97,20 +97,30 @@ const Location = ({ currentLang }: LocationProps) => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">            {/* Map Section */}
             <motion.div variants={itemVariants} className="order-2 lg:order-1">
-              <div className="bg-forest-100 rounded-2xl p-8 h-96 flex items-center justify-center border border-forest-200">
-                {/* Placeholder for Google Maps - In a real implementation, you would embed Google Maps here */}
-                <div className="text-center">
-                  <MapPin size={48} className="text-forest-600 mx-auto mb-4" />
-                  <p className="text-forest-700 font-medium">Mapa interactivo</p>
-                  <p className="text-forest-600 text-sm mt-2">
-                    {currentLang === 'es' 
-                      ? 'Integración con Google Maps'
-                      : 'Google Maps integration'
-                    }
-                  </p>
+              <div className="relative bg-gray-100 rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+                {/* Mapa de Google Maps embebido */}
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.398398398398!2d-3.7037902!3d40.4167754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42287734b5f1a1%3A0x44b0fb5dba86e0e8!2sMadrid%2C%20Spain!5e0!3m2!1sen!2sus!4v1640000000000!5m2!1sen!2sus"
+                  width="100%"
+                  height="400"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title={currentLang === 'es' ? 'Ubicación de Refugio Natural' : 'Refugio Natural Location'}
+                />
+                
+                {/* Overlay con información */}
+                <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-md">
+                  <div className="flex items-center space-x-2">
+                    <MapPin size={16} className="text-forest-600" />
+                    <span className="text-sm font-medium text-gray-800">
+                      {currentLang === 'es' ? 'Ver en Google Maps' : 'View on Google Maps'}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </motion.div>            {/* Information Section */}
+            </motion.div>{/* Information Section */}
             <motion.div variants={itemVariants} className="order-1 lg:order-2">
               <h3 className="text-2xl font-bold font-playfair text-gray-900 mb-6">
                 {t.howToGet}

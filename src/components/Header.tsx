@@ -60,10 +60,13 @@ const Header = ({ currentLang, onLanguageChange }: HeaderProps) => {
       }`}
     >
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
+        <div className="flex items-center justify-between h-16 lg:h-20">          {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="#home" className="text-2xl font-bold font-playfair text-forest-800">
+            <a href="#home" className={`text-2xl font-bold font-playfair transition-colors duration-200 ${
+              isScrolled ? 'text-gray-900' : 'text-white drop-shadow-lg'
+            }`}
+            style={!isScrolled ? { textShadow: '2px 2px 4px rgba(0,0,0,0.8)' } : {}}
+            >
               Refugio Natural
             </a>
           </div>
@@ -74,63 +77,68 @@ const Header = ({ currentLang, onLanguageChange }: HeaderProps) => {
               <a
                 key={item.href}
                 href={item.href}
-                className={`text-sm font-medium transition-colors duration-200 hover:text-forest-600 ${
-                  isScrolled ? 'text-forest-800' : 'text-white hover:text-forest-200'
+                className={`text-sm font-medium transition-colors duration-200 ${
+                  isScrolled 
+                    ? 'text-gray-800 hover:text-gray-600' 
+                    : 'text-white hover:text-gray-200 drop-shadow-md'
                 }`}
+                style={!isScrolled ? { textShadow: '1px 1px 3px rgba(0,0,0,0.8)' } : {}}
               >
                 {item.label}
               </a>
             ))}
-            
-            {/* Language Toggle */}
+              {/* Language Toggle */}
             <div className="flex items-center space-x-2">
-              <Globe size={16} className={isScrolled ? 'text-forest-800' : 'text-white'} />
+              <Globe size={16} className={`transition-colors duration-200 ${
+                isScrolled ? 'text-gray-800' : 'text-white drop-shadow-md'
+              }`} />
               <button
                 onClick={() => onLanguageChange(currentLang === 'es' ? 'en' : 'es')}
                 className={`text-sm font-medium transition-colors duration-200 ${
-                  isScrolled ? 'text-forest-800 hover:text-forest-600' : 'text-white hover:text-forest-200'
+                  isScrolled 
+                    ? 'text-gray-800 hover:text-gray-600' 
+                    : 'text-white hover:text-gray-200 drop-shadow-md'
                 }`}
+                style={!isScrolled ? { textShadow: '1px 1px 3px rgba(0,0,0,0.8)' } : {}}
               >
                 {currentLang === 'es' ? 'EN' : 'ES'}
               </button>
             </div>
-          </div>
-
-          {/* Mobile menu button */}
+          </div>          {/* Mobile menu button */}
           <div className="lg:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className={`p-2 rounded-md transition-colors duration-200 ${
-                isScrolled ? 'text-forest-800 hover:bg-forest-100' : 'text-white hover:bg-white/10'
+                isScrolled 
+                  ? 'text-gray-800 hover:bg-gray-100' 
+                  : 'text-white hover:bg-white/10 drop-shadow-md'
               }`}
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
-        </div>
-
-        {/* Mobile Navigation */}
+        </div>        {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden bg-white rounded-lg shadow-lg mt-2 p-4 animate-fade-in">
+          <div className="lg:hidden bg-white rounded-lg shadow-lg mt-2 p-4 animate-fade-in border border-gray-200">
             <div className="space-y-3">
               {menuItems.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
-                  className="block text-forest-800 hover:text-forest-600 transition-colors duration-200 py-2"
+                  className="block text-gray-800 hover:text-gray-600 transition-colors duration-200 py-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
                 </a>
               ))}
               <div className="border-t pt-3 flex items-center space-x-2">
-                <Globe size={16} className="text-forest-800" />
+                <Globe size={16} className="text-gray-800" />
                 <button
                   onClick={() => {
                     onLanguageChange(currentLang === 'es' ? 'en' : 'es');
                     setIsMenuOpen(false);
                   }}
-                  className="text-forest-800 hover:text-forest-600 transition-colors duration-200"
+                  className="text-gray-800 hover:text-gray-600 transition-colors duration-200"
                 >
                   {currentLang === 'es' ? 'English' : 'Español'}
                 </button>
