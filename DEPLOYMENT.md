@@ -181,4 +181,77 @@ Para dudas técnicas:
 
 ---
 
-**¡Tu sitio web está listo para conquistar el mundo del turismo rural!** 🏔️🏡
+# Guía de Despliegue
+
+## Despliegue en Vercel (Recomendado)
+
+### Pasos para desplegar:
+
+1. **Conectar repositorio:**
+   - Ve a [vercel.com](https://vercel.com) y haz login
+   - Haz clic en "New Project"
+   - Conecta tu repositorio de GitHub: `robertoparet/example-alquiler`
+
+2. **Configuración del proyecto:**
+   - Framework Preset: `Next.js`
+   - Node.js Version: `18.x` (especificado en `.nvmrc`)
+   - Build Command: `npm run build`
+   - Output Directory: `.next`
+   - Install Command: `npm install`
+
+3. **Variables de entorno (opcionales):**
+   ```
+   NEXT_PUBLIC_SITE_URL=https://tu-proyecto.vercel.app
+   NEXT_PUBLIC_WHATSAPP_NUMBER=1234567890
+   NEXT_PUBLIC_CALENDLY_URL=https://calendly.com/tu-usuario
+   ```
+
+### Solución de problemas comunes:
+
+#### Error de compilación:
+- **Problema**: React 19 y Next.js 15 pueden causar conflictos
+- **Solución**: Los archivos ya están configurados correctamente con:
+  - `.nvmrc` especifica Node.js 18
+  - `next.config.ts` optimizado para producción
+  - `vercel.json` simplificado
+
+#### Error de tipos TypeScript:
+- **Problema**: Versiones incompatibles
+- **Solución**: Ejecutar localmente:
+  ```bash
+  npm run build
+  ```
+  Si funciona localmente, debería funcionar en Vercel.
+
+#### Problemas con imágenes:
+- Las imágenes externas (Unsplash) están configuradas en `next.config.ts`
+- Para mejor rendimiento, considera usar imágenes locales en `/public`
+
+### Verificación del despliegue:
+
+1. **Build exitoso**: Verifica que no hay errores en los logs de Vercel
+2. **Funcionalidades**: 
+   - ✅ Navegación smooth scroll
+   - ✅ Cambio de idioma
+   - ✅ Responsive design
+   - ✅ Animaciones Framer Motion
+   - ✅ Google Maps embebido
+   - ✅ WhatsApp integration
+
+## Despliegue en Netlify (Alternativo)
+
+### Configuración:
+```toml
+# netlify.toml
+[build]
+  publish = ".next"
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+```
